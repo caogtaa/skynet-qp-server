@@ -34,3 +34,5 @@
 
 ## 性能测试服务器(benchmark_server)
 - 1.创建指定数目的的agent来模拟用户的操作
+
+## [客户端](https://github.com/nybdech/cocoscreator-qp-client)
