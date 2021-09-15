@@ -1,0 +1,93 @@
+package niuniu;
+
+message notify_gs_free {
+    required uint64 base_score = 1;
+}
+
+message notify_gs_callbanker {
+    required string dealid = 1;          // 牌局编号
+    required uint64 base_score = 2;
+    repeated bool playing_status = 3;
+    repeated bool call_banker_status = 4;
+    repeated uint32 call_banker_times = 5;
+    repeated uint32 cards_data = 6;
+}
+
+message notify_gs_bet {
+    required string dealid = 1;          // 牌局编号
+    required uint64 base_score = 2;
+    repeated bool playing_status = 3;
+    required uint32 banker_chairid = 4;
+    required uint32 banker_times = 5;
+    required bool allow_double_bet = 6;
+    repeated uint64 user_can_bet_score = 7;
+    repeated uint64 user_bet_score = 8;
+    repeated uint32 cards_data = 9;
+}
+
+message open_cards_data {
+    repeated uint32 cards_data = 1;
+}
+
+message notify_gs_opencard {
+    required string dealid = 1;          // 牌局编号
+    required uint64 base_score = 2;
+    repeated bool playing_status = 3;
+    required uint32 banker_chairid = 4;
+    required uint32 banker_times = 5;
+    repeated uint64 user_bet_score = 6;
+    repeated uint32 cards_data = 7;
+    repeated open_cards_data open_cards_data = 8;
+    repeated uint32 open_card_type = 9;
+    repeated uint32 open_card_times = 10;
+}
+
+message notify_game_start {
+    required string dealid = 1;          // 牌局编号
+    repeated uint32 cards_data = 2;
+}
+
+message notify_call_banker {
+    required uint32 call_banker_chairid = 1;
+    required uint32 call_banker_times = 2;
+}
+
+message notify_start_bet {
+    required uint32 banker_chairid = 1;
+    required uint32 banker_times = 2;
+    repeated uint32 call_user_list = 3;
+    repeated uint64 user_can_bet_score = 4;
+    required bool allow_double_bet = 5;
+}
+
+message notify_bet {
+    required uint32 bet_chairid = 1;
+    required uint64 bet_score = 2;
+}
+
+message notify_start_open_card {
+    repeated uint32 cards_data = 1;
+}
+
+message notify_open_cards {
+    required uint32 open_chairid = 1;
+    required uint32 open_card_type = 2;
+    repeated uint32 open_cards_data = 3;
+    required uint32 open_card_times = 4;
+}
+
+message notify_game_end {
+    repeated sint64 game_score = 1;
+}
+
+message request_call_banker {
+    required uint32 index = 1;
+}
+
+message request_bet {
+    required uint64 bet_score = 1;
+}
+
+message request_open_card {
+    repeated uint32 cards_data = 1;
+}

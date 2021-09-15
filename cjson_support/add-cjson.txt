@@ -1,0 +1,8 @@
+https://github.com/cloudwu/lua-cjson.git
+clone 上面的cjson 到skynet/3rd/目录下
+
+复制本目录下的Makefile到skynet/目录下
+cp ./cjson_support/Makefile ./skynet/Makefile
+
+最后编译
+make linux

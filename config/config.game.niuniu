@@ -1,0 +1,92 @@
+skynetroot = "./skynet/"
+thread = 8
+logger = nil
+logpath = "."
+harbor = 0
+start = "main"	-- main script
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+
+cluster = "./config/clustername.lua"
+
+gamename = "niuniu"
+
+log_dirname = "log"
+log_basename = gamename
+
+gameservice = "./game_server/?.lua;" ..
+			   "./common/?.lua"
+
+luaservice = skynetroot .. "service/?.lua;" .. gameservice
+-- snax standard services
+snax = gameservice
+
+lualoader = skynetroot .. "lualib/loader.lua"
+preload = "./global/preload.lua"	-- run preload.lua before every lua service run
+
+cpath = skynetroot .. "cservice/?.so"
+
+lua_path = skynetroot .. "lualib/?.lua;" ..
+		   "./lualib/?.lua;" ..
+		   "./global/?.lua;" ..
+		   "./game_server/games/?.lua;" ..
+		   "./game_server/games/" .. gamename .. "/?.lua"
+
+lua_cpath = skynetroot .. "luaclib/?.so;" .. "./luaclib/?.so"
+
+--daemon = "./game_" .. gamename .. ".pid"
+
+clusterid = 6000
+clustername = "cluster_game_" .. gamename
+
+debug_port = 9001
+
+mysql_maxconn = 10
+mysql_host = "127.0.0.1"
+mysql_port = 3306
+mysql_db = "gamedb"
+mysql_user = "root"
+mysql_pwd = "123456"
+
+-- 房间种类
+kindid = 2
+-- 游戏开始模式 0:所有人准备 1:满人开始 2:时间控制
+game_start_mode = 0
+-- 房间名字
+room_name = "牛牛初级场"
+-- 房间类型 0 金币场 1 私人场
+room_type = 0
+-- 房间预创建桌子数
+room_precreate_table_count = 10
+-- 房间最大桌子数目
+room_max_table_count = 60
+-- 房间最大椅子数
+room_max_chair_count = 10
+-- 房间最大人数
+room_max_player = 300
+-- 房间等级 0 体验场 1 新手场 2 初级场 3 中级场 4 高级场 5 土豪场 6 VIP场
+room_level = 0
+-- 房间底分
+room_base_score = 100
+-- 税收比例
+room_revenue = 0.06
+-- 房间排序标识
+room_sortid = 0
+-- 房间最小进入分数
+room_min_enter_score = 10000
+-- 房间最小进入桌子分数
+room_min_table_score = 10000
+-- 允许游戏中加入
+room_allow_join_playing = false
+-- 允许机器人
+room_allow_robot = true
+-- 允许旁观
+room_allow_ob = true
+
+-- 扩展规则
+table_extended_rules_count = 3
+-- 翻倍规则 (牛七2倍 牛八3倍 牛九4倍 牛牛5倍)=0 (牛七2倍 牛八2倍 牛九2倍 牛牛3倍)=1 (牛牛1-牛牛依次1-10倍)=1
+table_extended_rule_1 = 0
+-- 特殊牌型 顺子牛0x01 银牛0x02 同花牛0x04 金牛0x08 葫芦牛0x10 五小牛0x20 炸弹牛0x40 一条龙0x80 同花顺0x100  做 或 运算
+table_extended_rule_2 = 511
+-- 特殊规则 可咪牌0x01 下注翻倍0x02 王赖0x04   做 或 运算
+table_extended_rule_3 = 3

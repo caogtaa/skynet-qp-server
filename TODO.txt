@@ -1,0 +1,9 @@
+
+
+4.pbc有一个BUG: message { required uint32 a = 1; optional uint32 b = 2; } 
+  客户端发送过来的数据是a=100 没有设置b
+  服务器收到数据后 做判断 期望可以这样判断 (if b ~= nil then) 但是由于meta的关系 b会有个"默认值"是0(~=nil) 会导致判断无效
+  如果这个数据包的字段设计是0是无效，对么就只需要加一个判断0就可以 如果不是的话 就需要注意了
+  参考解决方案：https://blog.csdn.net/windeer/article/details/78289107
+
+处理代码里标识"TODO"的地方

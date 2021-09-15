@@ -1,0 +1,36 @@
+skynetroot = "./skynet/"
+thread = 8
+logger = nil
+logpath = "."
+harbor = 0
+start = "main"	-- main script
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+
+cluster = "./config/clustername.lua"
+
+log_dirname = "log"
+log_basename = "gate"
+
+gateservice = "./gate_server/?.lua;" ..
+			  "./common/?.lua"
+
+luaservice = skynetroot .. "service/?.lua;" .. gateservice
+-- snax standard services
+snax = gateservice
+
+lualoader = skynetroot .. "lualib/loader.lua"
+preload = "./global/preload.lua"	-- run preload.lua before every lua service run
+
+cpath = skynetroot .. "cservice/?.so"
+
+lua_path = skynetroot .. "lualib/?.lua;" ..
+		   "./lualib/?.lua;" ..
+		   "./global/?.lua"
+
+lua_cpath = skynetroot .. "luaclib/?.so;" .. "./luaclib/?.so"
+
+--daemon = "./gate.pid"
+
+clusterid = 7003
+clustername = "cluster_gate"
+endpoint = "0.0.0.0:8080"

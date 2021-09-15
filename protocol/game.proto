@@ -1,0 +1,176 @@
+package game;
+
+message request_enter_room {
+    required uint32 userid = 1;
+    required string password = 2;
+    required string uuid = 3;
+}
+
+message request_leave_room {
+    
+}
+
+message response_enter_room_success {
+}
+
+message response_enter_room_failed {
+    required string reason = 1;
+}
+
+// 玩法
+message wanfa {
+    repeated uint32 item = 1;
+}
+
+// 桌子参数
+message table_param {
+    required uint64 base_score = 1;          // 底分
+    required uint64 min_enter_score = 2;     // 准入分数
+    required uint32 max_chair_count = 3;    // 最大人数
+    required wanfa wanfa = 4;               // 玩法
+}
+
+// 子房间
+message subroom {
+    required uint32 subroomid = 1;
+    required bool open = 2;     // 是否开放
+    required string name = 3;   // 名字
+    required uint64 base_score = 4;          // 底分
+    required uint64 min_enter_score = 5;     // 准入分数
+    required uint32 max_chair_count = 6;        // 最大人数
+    repeated wanfa wanfa = 7; //
+}
+
+message notify_room_info {
+    required uint32 room_type = 1;  // 房间类型
+    required bool allow_join_playing = 2;  // 允许中途加入
+    required bool allow_ob = 3;     // 允许旁观
+    repeated subroom subrooms = 4;  // 子房间
+}
+
+message user_info {
+    required uint32 userid = 1;
+    required uint32 gameid = 2;
+    required string nickname = 3;
+    required uint32 faceid = 4;
+    required string head_img_url = 5;
+    required uint32 gender = 6;
+    required string signature = 7;
+    required uint32 vip_level = 8;
+    required uint32 master_level = 9;
+
+    required sint64 score = 10;
+
+    required uint32 tableid = 11;
+    required uint32 chairid = 12;
+    required uint32 user_status = 13;
+    required bool banker = 14;
+}
+
+message notify_myself_info {
+    required user_info userinfo = 1;
+}
+
+message notify_user_enter {
+    required user_info userinfo = 1;
+}
+
+message notify_other_users_info {
+    repeated user_info users_info = 1;
+}
+
+message table_info {
+    required uint32 tableid = 1;
+    required uint32 subroomid = 2;
+    required table_param param = 3;
+}
+
+message notify_tables_info {
+    repeated table_info tables_info = 1;
+}
+
+message request_sitdown {
+    required uint32 tableid = 1;
+    required uint32 chairid = 2;
+    optional uint32 subroomid = 3;
+    optional uint32 subroom_wanfaid = 4;
+}
+
+message request_standup {
+    required uint32 tableid = 1;
+    required uint32 chairid = 2;
+    optional bool ob_mode = 3;
+}
+
+message request_change_table {
+
+}
+
+message reponse_action_failed {
+    required string reason = 1;
+}
+
+message notify_userscore {
+    required uint32 userid = 1;
+    required sint64 user_score = 2;
+}
+
+message notify_userstatus {
+    required uint32 userid = 1;
+    required uint32 tableid = 2;
+    required uint32 chairid = 3;
+    required uint32 user_status = 4;
+    required bool banker = 5;
+}
+
+// 创建桌子
+message request_create_table {
+    required uint32 userid = 1;
+    required table_param param = 2;
+}
+
+// 创建桌子结果
+message response_create_table {
+    required uint32 tableid = 1;        // tableid=0表示创建失败
+    optional string reason = 3;         // 失败原因
+}
+
+// 通知创建桌子
+message notify_create_table {
+    required table_info table_info = 1;
+}
+
+// 删除桌子
+message request_delete_table {
+    required uint32 userid = 1;
+    required uint32 tableid = 2;
+}
+
+// 删除桌子结果
+message response_delete_table {
+    required uint32 tableid = 1;        // tableid=0表示删除失败
+    optional string reason = 3;         // 失败原因
+}
+
+// 通知删除桌子
+message notify_delete_table {
+    required uint32 tableid = 1;
+}
+
+message request_init_game {
+
+}
+
+message request_userready {
+
+}
+
+message gamemsg {
+	required string name = 1;
+	required bytes payload = 2;
+}
+
+message notify_system_message {
+    required uint32 type = 1;
+    required string text = 2;
+}

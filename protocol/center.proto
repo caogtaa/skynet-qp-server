@@ -1,0 +1,60 @@
+package center;
+
+message gate_server {
+    required uint32 clusterid = 1;
+    required string clustername = 2;
+    required string endpoint = 3;
+}
+
+message hall_server {
+    required uint32 clusterid = 1;
+    required string clustername = 2;
+}
+
+message game_server {
+    required uint32 clusterid = 1;
+    required string clustername = 2;
+
+    required uint32 kindid = 3;
+    required uint32 sortid = 4;
+    required uint64 min_enter_score = 5;
+    required string room_name = 6;
+}
+
+message register_gate_server {
+    required gate_server gate = 1;
+}
+
+message register_hall_server {
+    required hall_server hall = 1;
+}
+
+message register_game_server {
+    required game_server game = 1;
+}
+
+message request_gate_server_list {
+}
+
+message response_gate_server_list {
+    repeated gate_server gates = 1;
+}
+
+message request_hall_server_list {
+}
+
+message response_hall_server_list {
+    repeated hall_server halls = 1;
+}
+
+message request_game_server_list {
+}
+
+message response_game_server_list {
+    repeated game_server games = 1;
+}
+
+message response {
+    required bool ret = 1;
+    required string desc = 2;
+}

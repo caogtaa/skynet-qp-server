@@ -1,0 +1,5 @@
+skynet
+*.swp
+*.o
+/log
+/test/__pycache__

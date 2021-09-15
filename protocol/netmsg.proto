@@ -1,0 +1,21 @@
+package netmsg;
+
+message netmsg {
+	required string name = 1;
+	required bytes payload = 2;
+	optional uint32 sessionid = 3;
+}
+
+message heartbeat {
+
+}
+
+message notify_system_message {
+    required uint32 type = 1;
+    required string text = 2;
+}
+
+message notify_update_score {
+	required sint64 score = 1;
+	optional notify_system_message msg = 2;
+}

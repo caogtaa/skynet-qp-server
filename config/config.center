@@ -1,0 +1,34 @@
+skynetroot = "./skynet/"
+thread = 8
+logger = nil
+logpath = "."
+harbor = 0
+start = "main"	-- main script
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+
+cluster = "./config/clustername.lua"
+
+log_dirname = "log"
+log_basename = "center"
+
+centerservice = "./center_server/?.lua;" ..
+			   "./common/?.lua"
+
+luaservice = skynetroot .. "service/?.lua;" .. centerservice
+-- snax standard services
+snax = centerservice
+
+lualoader = skynetroot .. "lualib/loader.lua"
+preload = "./global/preload.lua"	-- run preload.lua before every lua service run
+
+cpath = skynetroot .. "cservice/?.so"
+
+lua_path = skynetroot .. "lualib/?.lua;" ..
+		   "./lualib/?.lua;" ..
+		   "./global/?.lua"
+
+lua_cpath = skynetroot .. "luaclib/?.so;" .. "./luaclib/?.so"
+
+--daemon = "./center.pid"
+
+http_port = 5000

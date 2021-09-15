@@ -1,0 +1,11 @@
+package login;
+
+message login {
+    required uint32 uid = 1;
+    required string secret = 2;
+}
+
+message kick {
+    required uint32 uid = 1;
+    required uint32 subid = 2;
+}

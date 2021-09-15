@@ -1,0 +1,153 @@
+package lhd;
+
+message notify_gs_free {
+    required string dealid = 1;          // 牌局编号
+    required int32 time_leave = 2;      // 剩余时间
+
+    required bool enable_sys_banker = 3;    // 系统坐庄
+    required uint64 banker_condition = 4;    // 上庄条件
+    required uint64 downbanker_condition = 5;    // 下庄条件
+    required uint64 user_bet_limit = 6;      // 用户限制
+    required uint64 area_bet_limit = 7;      // 区域限制
+    required uint64 bet_condition = 8;      // 下注条件
+
+    required uint32 current_banker = 9;     // 当前庄家
+    required uint64 banker_reserve_score = 10;    // 上庄分数
+    required uint32 banker_count = 11;       // 连庄次数
+}
+
+message notify_gs_bet {
+    required string dealid = 1;          // 牌局编号
+    required uint32 time_leave = 2;      // 剩余时间
+
+    required bool enable_sys_banker = 3;    // 系统坐庄
+    required uint64 banker_condition = 4;    // 上庄条件
+    required uint64 downbanker_condition = 5;    // 下庄条件
+    required uint64 user_bet_limit = 6;      // 用户限制
+    required uint64 area_bet_limit = 7;      // 区域限制
+    required uint64 bet_condition = 8;      // 下注条件
+
+    required uint32 current_banker = 9;     // 当前庄家
+    required uint64 banker_reserve_score = 10;    // 上庄分数
+    required uint32 banker_count = 11;       // 连庄次数
+
+    repeated uint64 all_bet_score = 12;      // 所有用户下注分数
+    repeated uint64 me_bet_score = 13;      // 自己下注分数
+}
+
+message notify_gs_opencard {
+    required string dealid = 1;          // 牌局编号
+    required uint32 time_leave = 2;      // 剩余时间
+
+    required bool enable_sys_banker = 3;    // 系统坐庄
+    required uint64 banker_condition = 4;    // 上庄条件
+    required uint64 downbanker_condition = 5;    // 下庄条件
+    required uint64 user_bet_limit = 6;      // 用户限制
+    required uint64 area_bet_limit = 7;      // 区域限制
+    required uint64 bet_condition = 8;      // 下注条件
+
+    required uint32 current_banker = 9;     // 当前庄家
+    required uint64 banker_reserve_score = 10;    // 上庄分数
+    required uint32 banker_count = 11;       // 连庄次数
+
+    repeated uint64 all_bet_score = 12;      // 所有用户下注分数
+    repeated uint64 me_bet_score = 13;      // 自己下注分数
+
+    repeated uint32 cards_data = 14;        // 开牌数据
+
+    required uint32 win_area = 15;          // 赢的区域 0，1，2
+    repeated sint64 win_score = 16;          // 赢分 0:幸运星 1-7 富豪1-7 8自己 9庄家 10其他在线
+}
+
+message notify_game_start {
+    required string dealid = 1;          // 牌局编号
+    required uint32 time_leave = 2;      // 剩余时间
+
+    required uint32 current_banker = 3;     // 当前庄家
+    required uint64 banker_reserve_score = 4;    // 上庄分数
+    required uint32 banker_count = 5;       // 连庄次数
+}
+
+message notify_bet {
+    required uint32 bet_chairid = 1;
+    required uint64 bet_score = 2;
+    required uint32 bet_area = 3;
+}
+
+message notify_open_cards {
+    required uint32 time_leave = 1;      // 剩余时间
+
+    repeated uint32 cards_data = 2;        // 开牌数据
+
+    required uint32 win_area = 3;          // 赢的区域 0，1，2
+    repeated sint64 win_score = 4;          // 赢分 0:幸运星 1-7 富豪1-7 8自己 9庄家 10其他在线
+}
+
+message notify_game_free {
+    required uint32 time_leave = 1;      // 剩余时间
+
+    required uint32 current_banker = 2;     // 当前庄家
+    required uint64 banker_reserve_score = 3;    // 上庄分数
+    required uint32 banker_count = 4;       // 连庄次数
+}
+
+// 取消上庄
+message notify_cancel_banker {
+    required uint32 cancel_chairid = 1;      // 取消用户
+}
+
+// 上庄
+message notify_apply_banker {
+    required uint32 apply_chairid = 1;      // 上庄用户
+    required uint64 reserve_score = 2;
+}
+
+// 切换上庄
+message notify_change_banker {
+    required uint32 current_banker = 1;     // 当前庄家
+    required uint64 banker_reserve_score = 2;    // 上庄分数
+    required uint32 banker_count = 3;       // 连庄次数
+    optional string reason = 4;             //
+}
+
+// 左右2边的用户
+message notify_top_players {
+    repeated uint32 chairids = 1;   // 0:幸运星 1-7 富豪1-7
+}
+
+// 玩家列表
+message user_list_item {
+    required uint32 chairid = 1;
+    required uint64 bet_score = 2;
+    required uint32 win_count = 3;
+}
+message notify_user_list {
+    repeated user_list_item users = 1;
+}
+
+// 庄家列表
+message notify_apply_list {
+    repeated notify_apply_banker apply_list = 1;
+}
+
+// 游戏记录
+message notify_game_records {
+    repeated uint32 records = 1;
+}
+
+// 下注筹码信息
+message notify_bet_chips {
+    repeated notify_bet bet_chips = 1;
+}
+
+message request_bet {
+    required uint64 bet_score = 1;
+    required uint32 bet_area = 2;
+}
+
+message request_apply_banker {
+    required uint64 reserve_score = 1;
+}
+
+message request_cancel_banker {
+}

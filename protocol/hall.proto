@@ -1,0 +1,648 @@
+package hall;
+
+message request_userinfo {
+	required uint32 userid = 1;
+	required string password = 2;
+}
+
+message club_info_item {
+	required uint32 clubid = 1;
+	required string club_name = 2;
+	required uint32 member_count = 3;
+	required uint32 identity = 4;			// 0创建者 1合伙人 2成员
+}
+
+message response_userinfo {
+	required uint32 userid = 1;
+	required uint32 gameid = 2;
+	required uint32 faceid = 3;
+	required uint32 gender = 4;
+	required string nickname = 5;
+	required string password = 6;
+	required string mobilephone = 7;
+	required string alipay_name = 8;
+	required string alipay_account = 9;
+	required string bankcard_id = 10;
+	required string bankcard_name = 11;
+	required uint32 vip_level = 12;
+	required string signature = 13;
+	required string head_img_url = 14;
+	required sint64 score = 15;
+	required sint64 bank_score = 16;
+	required int64 recharge_score = 17;
+	repeated club_info_item club_info = 18;
+	required uint32 selected_clubid = 19;
+	required uint32 lock_kindid = 20;
+	required uint32 lock_roomid = 21;
+}
+
+message response_userinfo_failed {
+	required string reason = 1;
+}
+
+message notify_update_userscore {
+	required sint64 score = 1;
+	required sint64 bank_score = 2;
+}
+
+message request_game_list {
+
+}
+
+message game_type {
+	required uint32 sortid = 1;
+	required uint32 typeid = 2;
+	required string type_name = 3;
+}
+
+message response_game_type_list {
+	repeated game_type game_type_list = 1;
+}
+
+message game_kind {
+	required uint32 typeid = 1;
+	required uint32 sortid = 2;
+	required uint32 kindid = 3;
+	required string kind_name = 4;
+}
+
+message response_game_kind_list {
+	repeated game_kind game_kind_list = 1;
+}
+
+message game_room {
+	required uint32 sessionid = 1;
+    required uint32 kindid = 2;
+    required uint32 sortid = 3;
+    required uint64 min_enter_score = 46;
+    required string room_name = 5;
+}
+
+message response_game_room_list {
+	repeated game_room game_room_list = 1;
+}
+
+// 存钱
+message request_bank_save_score {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint64 save_score = 3;
+}
+
+// 取钱
+message request_bank_get_score {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint64 get_score = 3;
+}
+
+// 银行结果
+message reponse_bank_result {
+	required uint32 result_code = 1;	// 0成功 其他失败
+	required sint64 user_score = 2;
+	required sint64 bank_score = 3;
+	optional string reason = 4;
+}
+
+// 帐变记录
+message request_log_change_score {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 day = 3;		// 0当日 1昨日 2前日
+}
+
+// 帐变记录结果
+message log_change_score_item {
+	required sint64 source_score = 1;
+	required sint64 change_score = 2;
+	required uint32 id = 3;
+	required uint32 change_type = 4;
+	required string change_reason = 5;
+	required string change_origin = 6;
+	required string change_date = 7;
+}
+message reponse_log_change_score {
+	repeated log_change_score_item items = 1;
+}
+
+// 商城和兑换的配置
+message request_config_shop_exchange {
+	required uint32 type = 1;		// 0 商城 1 兑换
+}
+
+message response_config_shop_exchange {
+	required string content = 1;
+	optional string ext = 2;
+}
+
+// 操作结果
+message response_operate_result {
+	required uint32 result_code = 1;
+	optional string reason = 2;
+}
+
+// 账号升级
+message request_accountup {
+	required uint32 userid = 1;
+	required string password = 2;
+	required string phone_number = 3;
+	required string code = 4;
+	required string new_password = 5;
+}
+
+// 修改密码
+message request_modify_password {
+	required uint32 userid = 1;
+	required string password = 2;
+	required string new_password = 3;
+	required string phone_number = 4;
+	required string code = 5;
+}
+
+// 绑定手机
+message request_bind_phone {
+	required uint32 userid = 1;
+	required string password = 2;
+	required string phone_number = 3;
+	required string code = 4;
+}
+
+// 绑定支付宝
+message request_bind_alipay {
+	required uint32 userid = 1;
+	required string password = 2;
+	required string alipay_account = 3;
+	required string alipay_name = 4;
+}
+
+// 绑定银行卡
+message request_bind_bankcard {
+	required uint32 userid = 1;
+	required string password = 2;
+	required string bankcard_id = 3;
+	required string bankcard_name = 4;
+	required string bankcard_addr = 5;
+}
+
+// 兑换
+message request_exchange {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 type = 3;		// 0 银行卡 1 支付宝
+	required uint64 score = 4;		// 兑换分数
+}
+
+// 兑换结果
+message reponse_exchange_result {
+	required uint32 result_code = 1;	// 0成功 其他失败
+	required sint64 bank_score = 2;
+	optional string reason = 3;
+}
+
+// 兑换记录
+message request_exchange_record {
+	required uint32 userid = 1;
+	required string password = 2;
+	required string start_date = 3;
+	required string end_date = 4;
+}
+
+// 兑换记录结果
+message exchange_record_item {
+	required uint32 id = 1;
+	required uint64 score = 2;
+	required uint64 revenue = 3;
+	required string account = 4;
+	required uint32 state = 5;
+	required string reason = 6;
+	required string insert_date = 7;
+}
+message reponse_exchange_record_result {
+	repeated exchange_record_item items = 1;
+}
+
+// 充值记录
+message request_recharge_record {
+	required uint32 userid = 1;
+	required string password = 2;
+	required string start_date = 3;
+	required string end_date = 4;
+}
+
+// 充值记录结果
+message recharge_record_item {
+	required string insert_date = 1;
+	required string order_no = 2;
+	required string channel = 3;
+	required uint64 pay_amount = 4;
+	required uint64 real_amount = 5;
+	required uint32 state = 6;
+}
+message reponse_recharge_record_result {
+	repeated recharge_record_item items = 1;
+}
+
+// 处理邮件
+message request_user_message_deal {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 id = 3;
+	required uint32 deal = 4;		// 0读取 1删除
+}
+
+message request_user_message {
+	required uint32 userid = 1;
+	required string password = 2;
+}
+
+// 通知新的邮件
+message user_message_item {
+	required uint32 id = 1;
+	required string title = 2;
+	required string message = 3;
+	required uint32 readed = 4;
+	required string insert_date = 5;
+}
+message notify_user_message {
+	repeated user_message_item items = 1;
+}
+
+// 俱乐部团队相关
+// 创建俱乐部
+message request_team_create_club {
+	required uint32 userid = 1;
+	required string password = 2;
+	required string clubname = 3;
+	required bool join_auth = 4; 
+}
+
+message response_team_create_club {
+	required uint32 result_code = 1;	// 0创建成功 其他创建失败
+	optional string reason = 2;
+	optional club_info_item club_info = 3;
+}
+
+// 搜索俱乐部
+message request_team_search_club {
+	required uint32 userid = 1;
+	required string password = 2;
+	required string club_invite_code = 3;
+}
+
+message response_team_search_club {
+	required uint32 result_code = 1;
+	optional string reason = 2;
+	optional club_info_item club_info = 3;
+}
+
+// 加入俱乐部
+message request_team_join_club {
+	required uint32 userid = 1;
+	required string password = 2;
+	required string club_invite_code = 3;
+}
+
+message response_team_join_club {
+	required uint32 result_code = 1;
+	optional string reason = 2;
+	optional club_info_item club_info = 3;
+}
+
+// 切换俱乐部
+message request_team_change_club {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+}
+
+message response_team_change_club {
+	required uint32 result_code = 1;
+	optional string reason = 2;
+	optional uint32 clubid = 3;
+}
+
+// 我的上级信息
+message request_team_parent_info {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+}
+
+message response_team_parent_info {
+	optional uint32 gameid = 1;
+	optional string nickname = 2;
+	optional string head_img_url = 3;
+	optional uint32 invited_code = 4;
+	optional string club_name = 5;
+	optional string notice = 6;
+	optional string wx = 7;
+	optional string qq = 8;
+}
+
+// 我自己的信息
+message request_team_myinfo {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+}
+
+message response_team_myinfo {
+	required uint32 gameid = 1;
+	required string nickname = 2;
+	required string head_img_url = 3;
+	required string invited_code = 4;
+	required uint32 share_ratio = 5;
+	required string notice = 6;
+	required string wx = 7;
+	required string qq = 8;
+	required string club_name = 9;
+}
+
+// 我的成员信息
+message request_team_members_info {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+}
+
+message team_member_item {
+	required uint32 userid = 1;
+	required uint32 gameid = 2;
+	required string nickname = 3;
+	required string head_img_url = 4;
+	required uint32 parent_gameid = 5;
+	required string last_login_date = 6;
+	required uint32 share_ratio = 7;
+	required sint64 today_total_performance = 8;
+	required sint64 yestoday_total_performance = 9;
+	required uint32 today_new_members_count = 10;
+	required uint32 yestoday_new_members_count = 11;
+	required uint32 direct_members_count = 12;
+	required string join_date = 13;
+}
+message response_team_members_info {
+	required uint32 share_ratio = 1;
+	required bool auto_be_partner = 2;
+	required uint32 auto_partner_share_ratio = 3;
+	repeated team_member_item direct_partner_items = 4;
+	repeated team_member_item direct_member_items = 5;
+	repeated team_member_item member_items = 6;
+}
+
+// 报表明细
+message request_team_report_info {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required uint32 month = 4;		// 0 当月 1 上月
+}
+
+message team_report_item {
+	required uint32 id = 1;
+	required string create_date = 2;
+	required sint64 performance = 3;
+	required uint32 share_ratio = 4;
+	required sint64 commission = 5;
+	required sint64 partner_commission = 6;
+	required sint64 direct_members_performance = 7;
+	required sint64 direct_partner_commission = 8;
+}
+message response_team_report_info {
+	required sint64 today_total_performance = 1;
+	required sint64 month_total_performance = 2;
+	required sint64 month_total_commission = 3;
+	repeated team_report_item items = 4;
+}
+
+// 合伙人会员信息
+message request_team_partner_member_info {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required uint32 partner_userid = 4;
+}
+
+message team_partner_member_item {
+	required uint32 gameid = 1;
+	required string nickname = 2;
+	required string head_img_url = 3;
+}
+message response_team_partner_member_info {
+	repeated team_partner_member_item items = 1;
+}
+
+// 直属会员税收明细
+message request_team_report_member_info {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required uint32 id = 4;
+}
+
+message team_report_member_item {
+	required uint32 gameid = 1;
+	required string nickname = 2;
+	required bool partner = 3;
+	required string date = 4;
+	required sint64 performance = 5;
+	required uint32 share_ratio = 6;
+	required sint64 commission = 7;
+}
+message response_team_report_member_info {
+	repeated team_report_member_item items = 1;
+}
+
+// 直属合伙人税收明细
+message request_team_report_partner_info {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required uint32 id = 4;
+}
+
+message team_report_partner_item {
+	required uint32 gameid = 1;
+	required string nickname = 2;
+	required string date = 3;
+	required sint64 performance = 4;
+	required uint32 share_ratio = 5;
+	required sint64 commission = 6;
+}
+message response_team_report_partner_info {
+	repeated team_report_partner_item items = 1;
+}
+
+// 推广信息
+message request_team_spread_info {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+}
+
+message team_invited_member_item {
+	required uint32 new_members_count = 1;
+	required uint32 new_direct_members_count = 2;
+}
+message response_team_spread_info {
+	optional string invited_code = 1;
+	repeated team_invited_member_item new_members_item = 2;
+	repeated string invite_urls = 3;		// 4个邀请链接
+}
+
+// 转账
+message request_team_transfer {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required uint32 dest_userid = 4;
+	required uint64 transfer_score = 5;
+}
+
+message response_team_transfer {
+	required sint32 result_code = 1;
+	optional string reason = 2;
+}
+
+// 编辑公告
+message request_team_edit_notice {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required string notice = 4;
+}
+
+message response_team_edit_notice {
+	required uint32 result_code = 1;
+	required string reason = 2;
+}
+
+// 编辑名片
+message request_team_edit_card {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required string wx = 4;
+	required string qq = 5;
+}
+
+message response_team_edit_card {
+	required uint32 result_code = 1;
+	required string reason = 2;
+}
+
+// 转账明细
+message request_team_log_transfer {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+}
+
+message team_log_transfer_item {
+	required uint32 id = 1;
+	required string insert_date = 2;
+	required string nickname = 3;
+	required uint32 gameid = 4;
+	required sint64 transfer_score = 5;
+	required sint64 state = 6;
+	optional uint32 expired_seconds = 7;		// 过期时间秒
+}
+message response_team_log_transfer {
+	repeated team_log_transfer_item items = 1;
+}
+
+// 撤销转账
+message request_team_transfer_cancel {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required uint32 id = 4;
+}
+
+message response_team_transfer_cancel {
+	required uint32 result_code = 1;
+	required string reason = 2;
+	optional uint32 id = 3;
+}
+
+// 自动成为合伙人
+message request_team_auto_be_partner {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required bool auto_be_partner = 4;
+	required uint32 auto_partner_share_ratio = 5;
+}
+
+message response_team_auto_be_partner {
+	required uint32 result_code = 1;
+	required string reason = 2;
+}
+
+// 升级为合伙人
+message request_team_be_partner {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required uint32 dest_userid = 4;
+	required uint32 share_ratio = 5;
+}
+
+message response_team_be_partner {
+	required uint32 result_code = 1;
+	required string reason = 2;
+}
+
+// 设置合伙人的分成比例
+message request_team_set_partner_share_ratio {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required uint32 partner_userid = 4;
+	required uint32 share_ratio = 5;
+}
+
+message response_team_set_partner_share_ratio {
+	required uint32 result_code = 1;
+	required string reason = 2;
+}
+
+// 战绩
+message request_team_game_records {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required uint32 type = 4;		// 0本人战绩 1会员战绩
+	required uint32 day = 5;		// 0今日 1昨日 2前日
+}
+
+message team_game_record_item {
+	required uint64 drawid = 1;
+	required string insert_date = 2;
+	required string wanfa = 3;
+	optional uint32 gameid = 4;
+	required sint64 change_score = 5;
+	required sint64 revenue = 6;
+	required sint64 commission = 7;
+}
+message response_team_game_records {
+	repeated team_game_record_item items = 1;
+}
+
+// 牌局明细
+message request_team_game_record_detail {
+	required uint32 userid = 1;
+	required string password = 2;
+	required uint32 clubid = 3;
+	required uint64 drawid = 4;
+}
+
+message team_game_record_detail_item {
+	required string gamelog = 1;
+	required sint64 start_score = 2;
+	required sint64 change_score = 3;
+	optional uint32 gameid = 4;
+}
+message response_team_game_record_detail {
+	required uint32 kindid = 1;
+	repeated team_game_record_detail_item items = 2;
+}

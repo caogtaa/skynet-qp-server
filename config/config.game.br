@@ -1,0 +1,42 @@
+skynetroot = "./skynet/"
+thread = 8
+logger = nil
+logpath = "."
+harbor = 0
+start = "main"	-- main script
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+
+cluster = "./config/clustername.lua"
+
+gamename = "br"
+
+log_dirname = "log"
+log_basename = gamename
+
+gameservice = "./game_server/?.lua;" ..
+			   "./common/?.lua"
+
+luaservice = skynetroot .. "service/?.lua;" .. gameservice
+-- snax standard services
+snax = gameservice
+
+lualoader = skynetroot .. "lualib/loader.lua"
+preload = "./global/preload.lua"	-- run preload.lua before every lua service run
+
+cpath = skynetroot .. "cservice/?.so"
+
+lua_path = skynetroot .. "lualib/?.lua;" ..
+		   "./lualib/?.lua;" ..
+		   "./global/?.lua;" ..
+		   "./game_server/games/?.lua;" ..
+		   "./game_server/games/" .. gamename .. "/?.lua;" ..
+		   "./game_server/games/" .. gamename .. "/lhd" .. "/?.lua"
+
+lua_cpath = skynetroot .. "luaclib/?.so;" .. "./luaclib/?.so"
+
+--daemon = "./game_" .. gamename .. ".pid"
+
+clustername = "cluster_game_" .. gamename
+clusterid = 6001
+
+debug_port = 6001 - 1000

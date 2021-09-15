@@ -1,0 +1,7 @@
+cluster_center = "127.0.0.1:7000"
+cluster_db = "127.0.0.1:7001"
+cluster_login = "127.0.0.1:7002"
+cluster_gate = "127.0.0.1:7003"
+cluster_hall = "127.0.0.1:7004"
+cluster_game_niuniu = "127.0.0.1:6000"
+cluster_game_br = "127.0.0.1:6001"

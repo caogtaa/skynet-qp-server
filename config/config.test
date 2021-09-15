@@ -1,0 +1,27 @@
+skynetroot = "./skynet/"
+thread = 8
+logger = nil
+logpath = "."
+harbor = 0
+start = "main"	-- main script
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+
+testservice = "./test_server/?.lua;" ..
+			   "./common/?.lua"
+
+luaservice = skynetroot .. "service/?.lua;" .. testservice
+-- snax standard services
+snax = testservice
+
+lualoader = skynetroot .. "lualib/loader.lua"
+preload = "./global/preload.lua"	-- run preload.lua before every lua service run
+
+cpath = skynetroot .. "cservice/?.so"
+
+lua_path = skynetroot .. "lualib/?.lua;" ..
+		   "./lualib/?.lua;" ..
+		   "./global/?.lua"
+
+lua_cpath = skynetroot .. "luaclib/?.so;" .. "./luaclib/?.so"
+
+--daemon = "./test.pid"

@@ -1,0 +1,11 @@
+# 安装配置
+- 1. 安装skynet
+    - git submodule update --init --recursive
+    - cd skynet
+    - make linux
+    - 如果遇到skynet相关的问题 前往skynet的github上寻找解决方案
+- 2. 安装redis
+    - 前往官网下载最新的redis即可,安装教程网上很多
+    - 配置 打开过期key的通知事件 config set notify-keyspace-events Ex 或者修改redis的配置文件
+- 3. cjson支持
+    - 见cjson_support目录

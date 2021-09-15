@@ -1,0 +1,42 @@
+skynetroot = "./skynet/"
+thread = 8
+logger = nil
+logpath = "."
+harbor = 0
+start = "main"	-- main script
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+
+cluster = "./config/clustername.lua"
+
+log_dirname = "log"
+log_basename = "hall"
+
+hallservice = "./hall_server/?.lua;" ..
+			   "./common/?.lua"
+
+luaservice = skynetroot .. "service/?.lua;" .. hallservice
+-- snax standard services
+snax = hallservice
+
+lualoader = skynetroot .. "lualib/loader.lua"
+preload = "./global/preload.lua"	-- run preload.lua before every lua service run
+
+cpath = skynetroot .. "cservice/?.so"
+
+lua_path = skynetroot .. "lualib/?.lua;" ..
+		   "./lualib/?.lua;" ..
+		   "./global/?.lua"
+
+lua_cpath = skynetroot .. "luaclib/?.so;" .. "./luaclib/?.so"
+
+--daemon = "./hall.pid"
+
+clusterid = 7004
+clustername = "cluster_hall"
+
+mysql_maxconn = 10
+mysql_host = "127.0.0.1"
+mysql_port = 3306
+mysql_db = "gamedb"
+mysql_user = "root"
+mysql_pwd = "123456"
